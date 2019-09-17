@@ -38,8 +38,12 @@ class App extends React.Component {
       question: "",
       correct_answer: "",
       incorrect_answers: [],
+      possibleAnswers: [],
       numberOfQuestions: 1,
+      questionCorrectStreak: 0,
       selectedCategory: categoryOptions[0],
+      score: 0,
+      questionAnswered: false
     };
   }
 
@@ -52,37 +56,54 @@ class App extends React.Component {
 
   checkAnswer(answer) {
     if (answer === this.state.correct_answer) {
+      this.setState({ questionAnswered: true });
       console.log(answer);
+      this.setState({
+        questionCorrectStreak: this.state.questionCorrectStreak + 1
+      });
+      this.setState({
+        score: this.state.score + 5 + this.state.questionCorrectStreak * 5
+      });
       alert("Correct!");
     } else {
+      this.setState({ questionAnswered: true });
       console.log(answer);
-      alert(
-        "Incorrect! The correct answer is " + this.state.correct_answer
-      );
+      console.log(this.state.score);
+      this.setState({ questionCorrectStreak: 0 });
+      alert("Incorrect! The correct answer is " + this.state.correct_answer);
     }
   }
 
   renderQuestion() {
-    //console.log(this.state.question);
-    //console.log(this.state.correct_answer);
-    let possibleAnswers = [];
-    possibleAnswers = possibleAnswers.concat(this.state.incorrect_answers);
-    possibleAnswers.push(this.state.correct_answer);
-    //console.log("Preshuffle: " + possibleAnswers);
-    this.shuffleArray(possibleAnswers);
-    //console.log("Postshuffle: " + possibleAnswers);
-    return (
-      <div>
-        <p class="question">{this.state.question}</p>
-        {possibleAnswers.map(answer => (
-          <div>
-            <button key={answer} onClick={() => this.checkAnswer(answer)}>
+    if (this.state.question !== "") {
+      return (
+        <div>
+          <p className="question">{this.state.question}</p>
+        </div>
+      );
+    }
+  }
+
+  renderAnswers() {
+    if (!this.state.questionAnswered) {
+      return (
+        <div>
+          {this.state.possibleAnswers.map(answer => (
+            <button
+              className="answer"
+              key={answer}
+              onClick={() => this.checkAnswer(answer)}
+            >
               {answer}
             </button>
-          </div>
-        ))}
-      </div>
-    );
+          ))}
+        </div>
+      );
+    }
+  }
+
+  renderScore() {
+    return <div>{this.state.score}</div>;
   }
 
   handleCategoryChange = selectedOption => {
@@ -97,46 +118,30 @@ class App extends React.Component {
       )
       .then(res => {
         //console.log(res);
+        let possibleAnswers = [];
         this.setState(
           {
+            questionAnswered: false,
             question: res.data.results[0].question,
             correct_answer: res.data.results[0].correct_answer,
             incorrect_answers: res.data.results[0].incorrect_answers
           },
           () => {
-            //console.log(this.state.incorrect_answers);
+            possibleAnswers = possibleAnswers.concat(
+              this.state.incorrect_answers
+            );
+            possibleAnswers.push(this.state.correct_answer);
+            this.shuffleArray(possibleAnswers);
           }
         );
-        //console.log(res);
+        this.setState({ possibleAnswers: possibleAnswers });
       })
       .catch(err => {
         console.log(err);
       });
   };
 
-  componentDidMount() {
-    axios
-      .get(
-        `http://localhost:8080/api/trivia/randomquestions?numberOfQuestions=${this.state.numberOfQuestions}&type=${this.state.selectedCategory}`
-      )
-      .then(res => {
-        //console.log(res);
-        this.setState(
-          {
-            question: res.data.results[0].question,
-            correct_answer: res.data.results[0].correct_answer,
-            incorrect_answers: res.data.results[0].incorrect_answers
-          },
-          () => {
-            // console.log(this.state.incorrect_answers);
-          }
-        );
-        //console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  componentDidMount() {}
 
   render() {
     const { selectedCategory } = this.state.selectedCategory;
@@ -156,15 +161,9 @@ class App extends React.Component {
           <div>
             <button onClick={this.newQuestion}>New Question</button>
           </div>
+          <div>{this.renderScore()}</div>
           <div>{this.renderQuestion()}</div>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <div>{this.renderAnswers()}</div>
         </header>
       </div>
     );

@@ -20,12 +20,17 @@
 
 .Dropdownselector{
   margin-left: auto;
-  margin-right:auto;
+  margin-right: auto;
   width: 24em;
 }
 
 .question{
   font-weight: bold;
+}
+
+.answer{
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 @keyframes App-logo-spin {
