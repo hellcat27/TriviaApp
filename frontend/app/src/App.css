@@ -1,0 +1,38 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 15s linear;
+  height: 20vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #2d4981;
+  min-height: 100vh;
+  align-items: center;
+}
+
+.App-link {
+  color: #0e667e;
+}
+
+.Dropdownselector{
+  margin-left: auto;
+  margin-right:auto;
+  width: 24em;
+}
+
+.question{
+  font-weight: bold;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
