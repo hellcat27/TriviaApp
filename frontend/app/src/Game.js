@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import axios from "axios";
 import Select from "react-select";
 import "./Game.css";
@@ -122,7 +121,7 @@ class Game extends React.Component {
       this.setState(
         {
           feedback:
-            "Incorrect! The correct answer is " + this.state.correct_answer
+            "Incorrect! The correct answer is " + this.state.correct_answer + "."
         },
         () => {
           this.checkForGameOver();
@@ -132,7 +131,7 @@ class Game extends React.Component {
   }
 
   renderQuestionCount() {
-    if (this.state.question != "") {
+    if (this.state.question !== "") {
       return (
         <div>
           <p>

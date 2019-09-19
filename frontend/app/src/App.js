@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
-import axios from "axios";
-import Select from "react-select";
+import React  from "react";
 import "./App.css";
 import Game from "./Game";
 
@@ -11,8 +8,6 @@ class App extends React.Component {
     this.state = {
     };
   }
-
-  componentDidMount() {}
 
   render() {
     return (
