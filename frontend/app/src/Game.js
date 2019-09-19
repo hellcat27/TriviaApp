@@ -46,7 +46,7 @@ class Game extends React.Component {
       score: 0,
       questionAnswered: true,
       numberOfQuestionsAnswered: 1,
-      questionLimit: 3,
+      questionLimit: 15,
       gameOver: false,
       feedback: "",
       gameoverFeedback: "",
