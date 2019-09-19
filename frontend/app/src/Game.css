@@ -1,0 +1,19 @@
+.Dropdownselector {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 75%;
+  margin-top: 3px;
+  border-radius: 4px;
+}
+
+.question {
+  font-weight: bold;
+}
+
+.answer {
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+}
+

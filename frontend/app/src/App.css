@@ -18,19 +18,19 @@
   color: #0e667e;
 }
 
-.Dropdownselector{
-  margin-left: auto;
-  margin-right: auto;
-  width: 24em;
+.GameExternal{
+  background-color: rgb(211, 200, 200);
+  text-align: center;
+  display: inline-block;
+  min-width: 80%;
+  max-width: 80%;
+  margin-top: 10px;
+  border-radius: 3px;
 }
 
-.question{
-  font-weight: bold;
-}
-
-.answer{
-  margin-left: 5px;
-  margin-right: 5px;
+.GameInternal{
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 @keyframes App-logo-spin {
